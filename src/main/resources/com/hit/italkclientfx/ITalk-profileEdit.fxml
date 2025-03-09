@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="420.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hit.italkclientfx.controllers.ProfileEditController">
+    <!-- Top: Header -->
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #2E7D32;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" text="Edit Profile" />
+        </HBox>
+    </top>
+
+    <!-- Center: Form for Editing Profile -->
+    <center>
+        <GridPane alignment="CENTER" hgap="20" vgap="15">
+            <padding>
+                <Insets bottom="30" left="30" right="30" top="30" />
+            </padding>
+
+            <!-- Old Password -->
+            <Label style="-fx-font-size: 16px;" text="Old Password:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <PasswordField fx:id="oldPasswordField" prefWidth="250" promptText="Enter current password" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <!-- New Password -->
+            <Label style="-fx-font-size: 16px;" text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="newPasswordField" prefWidth="250" promptText="Enter new password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- Confirm New Password -->
+            <Label style="-fx-font-size: 16px;" text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <PasswordField fx:id="confirmPasswordField" prefWidth="250" promptText="Re-enter new password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+            <!-- Role Selection -->
+            <Label fx:id="roleLabel" style="-fx-font-size: 16px;" text="New Role:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <ComboBox fx:id="roleComboBox" prefWidth="250" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            </ComboBox>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </center>
+
+    <!-- Bottom: Save and Cancel Buttons -->
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" prefWidth="480.0" spacing="20.0">
+                <children>
+                    <!-- message label -->
+                    <Label fx:id="messageLabel" alignment="TOP_CENTER" prefHeight="57.0" prefWidth="401.0" style="-fx-text-fill: #D32F2F; -fx-font-size: 12px;" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                            <Insets top="10.0" />
+                        </VBox.margin>
+                    </Label>
+                    <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+                        <children>
+                            <Button fx:id="saveButton" onAction="#handleSave" prefHeight="40" prefWidth="120" style="-fx-background-color: #388E3C; -fx-text-fill: white; -fx-font-size: 16px;" styleClass="interactive-button" text="Save" />
+                            <Button fx:id="cancelButton" onAction="#handleCancel" prefHeight="40" prefWidth="120" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-size: 16px;" styleClass="interactive-button" text="Cancel" />
+                        </children>
+                        <VBox.margin>
+                            <Insets bottom="20.0" />
+                        </VBox.margin>
+                    </HBox>
+                </children>
+            </VBox>
+        </HBox>
+    </bottom>
+</BorderPane>

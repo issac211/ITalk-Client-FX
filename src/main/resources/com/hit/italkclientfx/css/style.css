@@ -1,0 +1,18 @@
+/* For interactive buttons: highlight with a stroke when pressed */
+.interactive-button:pressed {
+    -fx-border-color: #288bbd;
+    -fx-border-width: 2px;
+}
+
+/* For interactive buttons: you can also add a hover effect */
+.interactive-button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0.0, 0, 0);
+    -fx-cursor: hand;
+}
+
+/* For post containers: highlight on mouse hover to show interactivity */
+.post-container:hover {
+    -fx-border-color: #288bbd !important;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0.0, 0, 2);
+}

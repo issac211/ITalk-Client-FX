@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="620.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hit.italkclientfx.controllers.PostsController">
+    <!-- Top Navigation: Profile, Refresh, Make Post and Search Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2E7D32;" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="10" left="15" right="15" top="10" />
+            </padding>
+            <!-- Profile Button -->
+            <Button fx:id="profileButton" onAction="#handleProfileButtonClick" prefHeight="40" prefWidth="80.0" style="-fx-background-color: #43A047; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Profile" />
+            <!-- Refresh Button -->
+            <Button fx:id="refreshButton" onAction="#handleRefreshButtonClick" prefHeight="40" prefWidth="80.0" style="-fx-background-color: #1B5E20; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Refresh" />
+            <!-- Make Post Button -->
+            <Button fx:id="makePostButton" onAction="#handleMakePostButtonClick" prefHeight="40" prefWidth="103.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Make Post" />
+            <!-- Search Section -->
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="430.0">
+                <TextField fx:id="searchField" onKeyPressed="#handleSearchFieldKeyPressed" prefHeight="39.0" prefWidth="239.0" promptText="Search ..." style="-fx-background-radius: 10 0 0 10; -fx-border-radius: 10 0 0 10;">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
+            <Button fx:id="searchButton" layoutX="385.0" layoutY="20.0" onAction="#handleSearchButtonClick" prefHeight="38.0" prefWidth="36.0" style="-fx-background-color: #66BB6A; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 0 10 10 0; -fx-background-radius: 0 10 10 0;" styleClass="interactive-button" text="Go">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+                <Button fx:id="clearButton" onAction="#handleClearButtonClick" prefHeight="40" prefWidth="124.0" style="-fx-background-color: #828282; -fx-font-size: 14px; -fx-background-radius: 5;" styleClass="interactive-button" text="X | Clear Search" textFill="#eeeeee">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
+            </HBox>
+            <!-- Spacer to push logo to right -->
+            <HBox HBox.hgrow="ALWAYS" />
+            <!-- Logo -->
+            <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                <Image url="@images/italk_logo_mini.png" />
+            </ImageView>
+        </HBox>
+    </top>
+
+    <!-- Center: Scrollable area for posts -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;" BorderPane.alignment="CENTER">
+            <VBox fx:id="postsContainer" spacing="20">
+                <!-- Posts will be dynamically added to this VBox.-->
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

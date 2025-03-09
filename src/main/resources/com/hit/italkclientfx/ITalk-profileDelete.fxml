@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="420.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hit.italkclientfx.controllers.ProfileDeleteController">
+    <!-- Top: Header -->
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #D32F2F;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="15" left="15" right="15" top="15" />
+            </padding>
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" text="Delete Account" />
+        </HBox>
+    </top>
+
+    <!-- Center: Verification Form -->
+    <center>
+        <GridPane alignment="CENTER" hgap="20" vgap="15">
+            <padding>
+                <Insets bottom="30" left="30" right="30" top="30" />
+            </padding>
+            <!-- Instruction Label -->
+            <Label style="-fx-font-size: 16px; -fx-text-fill: #424242;" text="Please verify your credentials to delete your account:" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+            <!-- Username -->
+            <Label style="-fx-font-size: 16px;" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="usernameField" prefWidth="250" promptText="Enter your username" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <!-- Password -->
+            <Label style="-fx-font-size: 16px;" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passwordField" prefWidth="250" promptText="Enter your password" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </center>
+
+    <!-- Bottom: Delete and Cancel Buttons -->
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <VBox alignment="CENTER" prefWidth="478.0" spacing="20.0">
+            <children>
+                <!-- message label -->
+                <Label fx:id="messageLabel" alignment="TOP_CENTER" prefHeight="57.0" prefWidth="401.0" style="-fx-text-fill: #D32F2F; -fx-font-size: 12px;" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Label>
+               <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+                  <children>
+                        <Button fx:id="deleteButton" onAction="#handleDelete" prefHeight="40" prefWidth="140" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-size: 16px;" styleClass="interactive-button" text="Delete" />
+                        <Button fx:id="cancelButton" onAction="#handleCancel" prefHeight="40" prefWidth="140" style="-fx-background-color: #757575; -fx-text-fill: white; -fx-font-size: 16px;" styleClass="interactive-button" text="Cancel" />
+                  </children>
+                  <VBox.margin>
+                     <Insets bottom="20.0" />
+                  </VBox.margin>
+               </HBox>
+            </children></VBox>
+        </HBox>
+    </bottom>
+</BorderPane>

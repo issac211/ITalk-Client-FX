@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="420.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hit.italkclientfx.controllers.ProfileController">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #2E7D32;" BorderPane.alignment="TOP_CENTER">
+            <padding>
+                <Insets bottom="10" left="15" right="15" top="10" />
+            </padding>
+            <!-- Return to Main Page Button -->
+            <Button fx:id="returnButton" onAction="#handleReturn" prefHeight="40" prefWidth="140" style="-fx-background-color: #43A047; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Return to Main" />
+            <HBox HBox.hgrow="ALWAYS" />
+        </HBox>
+    </top>
+
+    <!-- Center: Display User Details -->
+    <center>
+        <VBox alignment="CENTER" spacing="5.0">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="User Profile" />
+            <GridPane alignment="CENTER" hgap="30.0" vgap="10">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+                <!-- Username -->
+                <Label style="-fx-font-size: 16px;" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="usernameLabel" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <!-- Role -->
+                <Label style="-fx-font-size: 16px;" text="Role:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="roleLabel" style="-fx-font-size: 16px;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <columnConstraints>
+               <ColumnConstraints />
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+                <!-- You can add more user details as needed -->
+            </GridPane>
+            <!-- Edit Profile Button: Navigates to another scene for editing -->
+            <Button fx:id="editProfileButton" onAction="#handleEditProfile" prefHeight="40" prefWidth="170.0" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Edit Profile" />
+            <!-- Log Out Button -->
+            <Button fx:id="logoutButton" onAction="#handleLogout" prefHeight="40" prefWidth="170.0" style="-fx-background-color: #6e6d78; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text="Log Out" />
+         <HBox alignment="CENTER" fillHeight="false" prefHeight="15.0" />
+         <Button fx:id="deleteAccountButton" layoutX="235.0" layoutY="288.0" onAction="#handleDeleteAccount" prefHeight="40" prefWidth="170.0" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-size: 14px;" styleClass="interactive-button" text=" Delete Account" />
+        </VBox>
+    </center>
+   <bottom>
+       <!-- message label -->
+       <Label fx:id="messageLabel" alignment="TOP_CENTER" prefHeight="57.0" prefWidth="302.0" style="-fx-text-fill: #D32F2F; -fx-font-size: 12px;" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+           <VBox.margin>
+               <Insets top="10.0" />
+           </VBox.margin>
+       </Label>
+   </bottom>
+</BorderPane>

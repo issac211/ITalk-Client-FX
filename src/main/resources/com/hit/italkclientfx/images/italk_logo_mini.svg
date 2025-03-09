@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background circle with a modern blue color -->
+    <circle cx="100" cy="100" r="90" fill="#2196F3"/>
+
+    <!-- A second circle for a subtle inner highlight -->
+    <circle cx="100" cy="100" r="70" fill="#64B5F6"/>
+
+    <!-- Text for the logo -->
+    <text x="100" y="115"
+          font-family="Arial, sans-serif"
+          font-size="40"
+          font-weight="bold"
+          text-anchor="middle"
+          fill="white">
+        ITalk
+    </text>
+
+    <!-- Optional: A subtle drop shadow effect -->
+    <filter id="dropshadow" height="130%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+        <feOffset dx="2" dy="2" result="offsetblur"/>
+        <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    </filter>
+    <!-- Uncomment the filter attribute below to apply the drop shadow to the text -->
+    <text x="100" y="115"
+          font-family="Arial, sans-serif"
+          font-size="40"
+          font-weight="bold"
+          text-anchor="middle"
+          fill="white"
+          filter="url(#dropshadow)">
+      ITalk
+    </text>
+</svg>
