@@ -1,6 +1,6 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.UserClient;
 import com.hit.dm.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +29,12 @@ public class ProfileDeleteController extends ITalkController implements Initiali
     @FXML
     private Button cancelButton;
 
+    private UserClient userClient;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        userClient = (UserClient) clients.get("userClient");
+
         // Pre-fill the username field if the current user is available.
         if (appStatus.getCurrentUser() != null) {
             usernameField.setText(appStatus.getCurrentUser().getUsername());
@@ -39,7 +43,7 @@ public class ProfileDeleteController extends ITalkController implements Initiali
 
     /**
      * Handles the deletion of the account.
-     * Verifies the entered username and password, calls the Client's removeUser method,
+     * Verifies the entered username and password, calls the UserClient's removeUser method,
      * and if successful, clears the current user, closes the current stage,
      * and navigates to the login scene.
      */
@@ -56,7 +60,7 @@ public class ProfileDeleteController extends ITalkController implements Initiali
             }
 
             try {
-                boolean authenticated = Client.getInstance().authenticateUser(username, password);
+                boolean authenticated = userClient.authenticateUser(username, password);
                 if (!authenticated || !username.equals(currentUser.getUsername())) {
                     messageLabel.setText("Account deletion failed. Please check your credentials.");
                     return;
@@ -71,7 +75,7 @@ public class ProfileDeleteController extends ITalkController implements Initiali
             sceneManager.openNewStage("profileDeleteVerification", appStatus, true);
 
             if (appStatus.isVerified()) {
-                boolean deleted = Client.getInstance().removeUser(currentUser.getUsername(), username, password);
+                boolean deleted = userClient.removeUser(currentUser.getUsername(), username, password);
 
                 if (deleted) {
                     if (currentUser.getUsername().equals(username)) {

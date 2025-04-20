@@ -1,6 +1,6 @@
 package com.hit.italkclientfx;
 
-import com.hit.client.Client;
+import com.hit.client.*;
 import com.hit.italkclientfx.controllers.ITalkController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
+
+import java.util.*;
 
 public class ITalkApplication extends Application {
 
@@ -22,8 +22,16 @@ public class ITalkApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Initialize global resources.
+        UserClient userClient = new UserClient("localhost", 34567);
+        PostClient postClient = new PostClient("localhost", 34567);
+        CommentClient commentClient = new CommentClient("localhost", 34567);
+        Map<String, BaseClient> clients = new HashMap<>();
+        clients.put("userClient", userClient);
+        clients.put("postClient", postClient);
+        clients.put("commentClient", commentClient);
         AppStatus appStatus = new AppStatus();
-        sceneManager = new SceneManager(primaryStage);
+
+        sceneManager = new SceneManager(primaryStage, clients);
         sceneManager.addScene("login", "ITalk-login.fxml");
         sceneManager.addScene("profile", "ITalk-profile.fxml");
         sceneManager.addScene("profileEdit", "ITalk-profileEdit.fxml");
@@ -35,29 +43,8 @@ public class ITalkApplication extends Application {
         sceneManager.addScene("postDeleteVerification", "ITalk-postDeleteVerification.fxml");
         sceneManager.addScene("commentEditor", "ITalk-commentEditor.fxml");
         sceneManager.addScene("commentDeleteVerification", "ITalk-commentDeleteVerification.fxml");
-        Client.initializeInstance("localhost", 34567);
 
-        // Sets a custom controller factory to inject SceneManager and AppStatus
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ITalk-login.fxml"));
-        fxmlLoader.setControllerFactory(param -> {
-            Object controller = null;
-            try {
-                controller = param.getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-            if (controller instanceof ITalkController) {
-                ((ITalkController) controller).setSceneManager(sceneManager);
-                ((ITalkController) controller).setAppStatus(appStatus);
-            }
-            return controller;
-        });
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass()
-                .getResource("/com/hit/italkclientfx/css/style.css")).toExternalForm());
         primaryStage.setTitle("ITalk");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        sceneManager.switchScene("login", appStatus, false);
     }
 }

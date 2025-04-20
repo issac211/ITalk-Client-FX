@@ -1,6 +1,6 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.UserClient;
 import com.hit.dm.User.Role;
 import com.hit.dm.User;
 import javafx.event.ActionEvent;
@@ -33,8 +33,12 @@ public class ProfileEditController extends ITalkController implements Initializa
     @FXML
     private Button cancelButton;
 
+    private UserClient userClient;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        userClient = (UserClient) clients.get("userClient");
+
         // Populate the roleComboBox with role options
         for (Role role : Role.values()) {
             roleComboBox.getItems().add(role.name());
@@ -79,14 +83,14 @@ public class ProfileEditController extends ITalkController implements Initializa
 
         try {
             // Optionally verify the old password with the server.
-            boolean auth = Client.getInstance().authenticateUser(currentUser.getUsername(), oldPass);
+            boolean auth = userClient.authenticateUser(currentUser.getUsername(), oldPass);
             if (!auth) {
                 messageLabel.setText("Old password is incorrect.");
                 return;
             }
 
             // Attempt to update the user's details.
-            boolean edited = Client.getInstance().editUser(
+            boolean edited = userClient.editUser(
                     currentUser.getUsername(), // editorName
                     currentUser.getUsername(), // userName to edit
                     oldPass,

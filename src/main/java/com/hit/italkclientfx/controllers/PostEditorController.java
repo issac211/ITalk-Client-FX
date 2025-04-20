@@ -1,6 +1,6 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.PostClient;
 import com.hit.dm.Post;
 import com.hit.dm.User;
 import javafx.event.ActionEvent;
@@ -33,8 +33,12 @@ public class PostEditorController extends ITalkController implements Initializab
     @FXML
     public Label messageLabel;
 
+    private PostClient postClient;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        postClient = (PostClient) clients.get("postClient");
+
         // Determine if we are in create mode or edit mode.
         Post currentPost = appStatus.getCurrentPost();
         if (currentPost == null) {
@@ -72,7 +76,7 @@ public class PostEditorController extends ITalkController implements Initializab
         try {
             if (appStatus.getCurrentPost() == null) {
                 // Create mode
-                boolean created = Client.getInstance().createPost(title, currentUser.getUsername(), content);
+                boolean created = postClient.createPost(title, currentUser.getUsername(), content);
 
                 if (created) {
                     // Setting Verification flag to true.
@@ -86,10 +90,10 @@ public class PostEditorController extends ITalkController implements Initializab
             } else {
                 // Edit mode
                 Post currentPost = appStatus.getCurrentPost();
-                boolean Edited = Client.getInstance().editPost(currentPost.getId(), title, currentUser.getUsername(), content);
+                boolean Edited = postClient.editPost(currentPost.getId(), title, currentUser.getUsername(), content);
 
                 if (Edited) {
-                    Post editedPost = Client.getInstance().getPostById(currentPost.getId());
+                    Post editedPost = postClient.getPostById(currentPost.getId());
                     appStatus.setCurrentPost(editedPost);
                     // Setting Verification flag to true.
                     appStatus.setVerificationFlag(true);

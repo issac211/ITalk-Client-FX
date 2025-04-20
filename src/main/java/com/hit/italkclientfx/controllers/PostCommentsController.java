@@ -1,6 +1,7 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.CommentClient;
+import com.hit.client.PostClient;
 import com.hit.dm.Comment;
 import com.hit.dm.Post;
 import com.hit.dm.User;
@@ -47,16 +48,19 @@ public class PostCommentsController extends ITalkController implements Initializ
     private Button editPostButton;        // Visible only if current user is post owner
     @FXML
     private Button deletePostButton;      // Visible only if current user is post owner
-
     @FXML
     private VBox commentsContainer;       // Container where comments are dynamically added
     @FXML
     private Button newCommentButton;      // Button to create a new comment
 
     private Timeline refreshTimeline;
+    private CommentClient commentClient;
+    private PostClient postClient;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        commentClient = (CommentClient) clients.get("commentClient");
+        postClient = (PostClient) clients.get("postClient");
         loadAll();
         startRefreshLoop();
     }
@@ -145,7 +149,7 @@ public class PostCommentsController extends ITalkController implements Initializ
             sceneManager.openNewStage("postDeleteVerification", appStatus, true);
 
             if (appStatus.isVerified()) {
-                boolean deleted = Client.getInstance().removePost(currentPost.getId(), currentPost.getUserName());
+                boolean deleted = postClient.removePost(currentPost.getId(), currentPost.getUserName());
 
                 if (deleted) {
                     clearAllComments();
@@ -190,7 +194,7 @@ public class PostCommentsController extends ITalkController implements Initializ
             sceneManager.openNewStage("commentDeleteVerification", appStatus, true);
 
             if (appStatus.isVerified()) {
-                boolean deleted = Client.getInstance().removeComment(comment.getId(), comment.getUserName());
+                boolean deleted = commentClient.removeComment(comment.getId(), comment.getUserName());
 
                 if (deleted) {
                     refreshPage();
@@ -285,7 +289,7 @@ public class PostCommentsController extends ITalkController implements Initializ
             Post currentPost = appStatus.getCurrentPost();
             User currentUser = appStatus.getCurrentUser();
             if (currentPost == null) return;
-            List<Comment> comments = Client.getInstance().getPostComments(currentPost.getId());
+            List<Comment> comments = postClient.getPostComments(currentPost.getId());
             comments.sort(Comparator.comparing(Comment::getTimestamp));
 
             for (Comment comment : comments) {

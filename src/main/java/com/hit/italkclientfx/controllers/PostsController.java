@@ -1,6 +1,7 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.CommentClient;
+import com.hit.client.PostClient;
 import com.hit.dm.Comment;
 import com.hit.dm.MatchResult;
 import com.hit.dm.Post;
@@ -50,10 +51,15 @@ public class PostsController extends ITalkController implements Initializable, I
     private VBox postsContainer;
 
     private Timeline refreshTimeline;
+    private CommentClient commentClient;
+    private PostClient postClient;
 
     // This method is called automatically when the FXML file is loaded.
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        commentClient = (CommentClient) clients.get("commentClient");
+        postClient = (PostClient) clients.get("postClient");
+
         if (appStatus.getCurrentUser() == null) {
             try {
                 sceneManager.switchScene("login", appStatus, false);
@@ -180,7 +186,7 @@ public class PostsController extends ITalkController implements Initializable, I
      */
     private void loadPosts() {
         try {
-            List<Post> posts = Client.getInstance().getAllPosts();
+            List<Post> posts = postClient.getAllPosts();
             posts.sort(Comparator.comparing(Post::getTimestamp, Comparator.reverseOrder()));
             for (Post post : posts) {
                 String editedRedLabel = null;
@@ -280,11 +286,11 @@ public class PostsController extends ITalkController implements Initializable, I
 
         try {
             // Search in post titles
-            SearchResult<Post> titleResults = Client.getInstance().searchPostTitles(query);
+            SearchResult<Post> titleResults = postClient.searchPostTitles(query);
             // Search in post contents
-            SearchResult<Post> contentResults = Client.getInstance().searchPostContents(query);
+            SearchResult<Post> contentResults = postClient.searchPostContents(query);
             // Search in comment contents
-            SearchResult<Comment> commentResults = Client.getInstance().searchCommentContents(query);
+            SearchResult<Comment> commentResults = commentClient.searchCommentContents(query);
 
             // Section header for title results
             addHeaderLabel("All Matching Titles:");
@@ -349,7 +355,7 @@ public class PostsController extends ITalkController implements Initializable, I
                     HBox snippet = getSnippet(
                             comment.getContent(), query, i, 30, "Snippet (comment):");
 
-                    Post post = Client.getInstance().getPostById(comment.getPostId());
+                    Post post = postClient.getPostById(comment.getPostId());
 
                     if (post != null) {
                         VBox postContainer = addPostContainer(

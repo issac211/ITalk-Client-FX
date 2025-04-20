@@ -1,6 +1,6 @@
 package com.hit.italkclientfx.controllers;
 
-import com.hit.client.Client;
+import com.hit.client.CommentClient;
 import com.hit.dm.Comment;
 import com.hit.dm.Post;
 import com.hit.dm.User;
@@ -31,8 +31,12 @@ public class CommentEditorController extends ITalkController implements Initiali
     @FXML
     private Label messageLabel; // For displaying error messages
 
+    private CommentClient commentClient;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        commentClient = (CommentClient) clients.get("commentClient");
+
         // Determine mode based on whether a current comment exists
         if (appStatus.getCurrentComment() == null) {
             editorStatusLabel.setText("Create Comment");
@@ -75,11 +79,11 @@ public class CommentEditorController extends ITalkController implements Initiali
                     messageLabel.setText("No post selected.");
                     return;
                 }
-                success = Client.getInstance().createComment(currentPost.getId(), currentUser.getUsername(), content);
+                success = commentClient.createComment(currentPost.getId(), currentUser.getUsername(), content);
             } else {
                 // Edit mode
                 Comment currentComment = appStatus.getCurrentComment();
-                success = Client.getInstance().editComment(currentComment.getId(), currentUser.getUsername(), content);
+                success = commentClient.editComment(currentComment.getId(), currentUser.getUsername(), content);
             }
 
             if (success) {

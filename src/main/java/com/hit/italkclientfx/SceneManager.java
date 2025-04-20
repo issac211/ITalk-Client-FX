@@ -1,5 +1,6 @@
 package com.hit.italkclientfx;
 
+import com.hit.client.BaseClient;
 import com.hit.italkclientfx.controllers.IRefreshable;
 import com.hit.italkclientfx.controllers.ITalkController;
 import javafx.fxml.FXMLLoader;
@@ -20,11 +21,13 @@ public class SceneManager {
     private final Map<String, String> sceneMap;
     private Stage primaryStage;
     private Stage currentStage;
+    private final Map<String, BaseClient> clients;
 
-    public SceneManager(Stage primaryStage) {
+    public SceneManager(Stage primaryStage, Map<String, BaseClient> clients) {
         sceneMap = new HashMap<>();
         this.primaryStage = primaryStage;
         this.currentStage = primaryStage;
+        this.clients = clients;
     }
 
     /**
@@ -65,6 +68,7 @@ public class SceneManager {
             if (controller instanceof ITalkController) {
                 ((ITalkController) controller).setSceneManager(this);
                 ((ITalkController) controller).setAppStatus(appStatus);
+                ((ITalkController) controller).setClients(clients);
             }
             return controller;
         });
@@ -130,6 +134,7 @@ public class SceneManager {
             if (controller instanceof ITalkController) {
                 ((ITalkController) controller).setSceneManager(this);
                 ((ITalkController) controller).setAppStatus(appStatus);
+                ((ITalkController) controller).setClients(clients);
             }
             return controller;
         });
