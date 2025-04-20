@@ -6,8 +6,6 @@ import com.hit.dm.Comment;
 import com.hit.dm.MatchResult;
 import com.hit.dm.Post;
 import com.hit.dm.SearchResult;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,13 +21,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class PostsController extends ITalkController implements Initializable, IRefreshable {
+public class PostsController extends ITalkController implements Initializable {
 
     @FXML
     public Button makePostButton;
@@ -50,7 +47,6 @@ public class PostsController extends ITalkController implements Initializable, I
     @FXML
     private VBox postsContainer;
 
-    private Timeline refreshTimeline;
     private CommentClient commentClient;
     private PostClient postClient;
 
@@ -71,29 +67,6 @@ public class PostsController extends ITalkController implements Initializable, I
         } else {
             searchField.setText(appStatus.getCurrentSearch());
             makeSearch();
-        }
-
-        startRefreshLoop();
-    }
-
-    @Override
-    public void startRefreshLoop() {
-        if (refreshTimeline == null) {
-            refreshTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-                refreshPage();
-            }));
-            refreshTimeline.setCycleCount(Timeline.INDEFINITE);
-        }
-
-        if (refreshTimeline.getStatus() == Animation.Status.STOPPED) {
-            refreshTimeline.play();
-        }
-    }
-
-    @Override
-    public void stopRefreshLoop() {
-        if (refreshTimeline != null) {
-            refreshTimeline.stop();
         }
     }
 

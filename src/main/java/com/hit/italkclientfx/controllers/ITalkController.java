@@ -4,7 +4,6 @@ import com.hit.client.BaseClient;
 import com.hit.italkclientfx.AppStatus;
 import com.hit.italkclientfx.SceneManager;
 
-import java.util.List;
 import java.util.Map;
 
 public abstract class ITalkController {

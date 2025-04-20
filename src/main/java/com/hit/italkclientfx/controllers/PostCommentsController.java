@@ -5,8 +5,6 @@ import com.hit.client.PostClient;
 import com.hit.dm.Comment;
 import com.hit.dm.Post;
 import com.hit.dm.User;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PostCommentsController extends ITalkController implements Initializable, IRefreshable {
+public class PostCommentsController extends ITalkController implements Initializable {
 
     public Button refreshButton;
     @FXML
@@ -53,7 +50,6 @@ public class PostCommentsController extends ITalkController implements Initializ
     @FXML
     private Button newCommentButton;      // Button to create a new comment
 
-    private Timeline refreshTimeline;
     private CommentClient commentClient;
     private PostClient postClient;
 
@@ -62,28 +58,6 @@ public class PostCommentsController extends ITalkController implements Initializ
         commentClient = (CommentClient) clients.get("commentClient");
         postClient = (PostClient) clients.get("postClient");
         loadAll();
-        startRefreshLoop();
-    }
-
-    @Override
-    public void startRefreshLoop() {
-        if (refreshTimeline == null) {
-            refreshTimeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
-                refreshPage();
-            }));
-            refreshTimeline.setCycleCount(Timeline.INDEFINITE);
-        }
-
-        if (refreshTimeline.getStatus() == Animation.Status.STOPPED) {
-            refreshTimeline.play();
-        }
-    }
-
-    @Override
-    public void stopRefreshLoop() {
-        if (refreshTimeline != null) {
-            refreshTimeline.stop();
-        }
     }
 
     /**

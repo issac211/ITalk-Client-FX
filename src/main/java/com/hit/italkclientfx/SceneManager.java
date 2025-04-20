@@ -1,7 +1,6 @@
 package com.hit.italkclientfx;
 
 import com.hit.client.BaseClient;
-import com.hit.italkclientfx.controllers.IRefreshable;
 import com.hit.italkclientfx.controllers.ITalkController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,23 +71,11 @@ public class SceneManager {
             }
             return controller;
         });
+
         Parent root = loader.load();
-
-        // Store the controller in the root's properties for later retrieval.
-        Object newController = loader.getController();
-        root.getProperties().put("controller", newController);
-
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Objects.requireNonNull(getClass()
                 .getResource("/com/hit/italkclientfx/css/style.css")).toExternalForm());
-
-        // Before switching, if current scene's controller implements IRefreshable, stop its refresh loop.
-        if (currentStage.getScene() != null) {
-            Object oldController = currentStage.getScene().getRoot().getProperties().get("controller");
-            if (oldController instanceof IRefreshable) {
-                ((IRefreshable) oldController).stopRefreshLoop();
-            }
-        }
 
         currentStage.setScene(scene);
 
